@@ -55,12 +55,22 @@ class Users extends Controller
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                 if($this->userModel->register($data)){
-                    echo 'ok, registered';
+                    header('Location: '.URLROOT.'/'.'users/login');
                 }   else{
                     die('Something went wrong');
                 }
             }
-
+        } else{
+            $data = array(
+                'name' => '',
+                'email' => '',
+                'password' => '',
+                'confirm_password' => '',
+                'name_err' => '',
+                'email_err' => '',
+                'password_err' => '',
+                'confirm_password_err' => ''
+            );
         }
         $this->view('users/register', $data);
     }
